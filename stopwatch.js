@@ -3,6 +3,8 @@ const start = document.querySelector('button.start')
 const stop = document.querySelector('button.stop')
 const lap = document.querySelector('button.lap')
 const reset = document.querySelector('button.reset')
+
+
 // DOM elements that I need to update
 const lapList = document.querySelector('#lapList')
 const stopwatchTime = document.querySelector('#stopwatchTime')
@@ -13,6 +15,7 @@ const intervalRate = 10 // update the stopwatch every 10 milliseconds
 
 // values that will change pretty often
 let intervalId = null
+let currentTimer = 0
 let rawTime = 0
 
 
@@ -47,13 +50,11 @@ function stopwatchUpdate () {
 function stopwatchStop (event) {
   event.preventDefault()
   console.log('stopped!')
-
   clearInterval(intervalId)
 }
 
-// resets the stopwatch and update the Dom to 0
 
-
+// adds new laps as it clicks the 'lap' button
 function newLap(event){
   event.preventDefault()
   console.log('New Lap!')
@@ -62,11 +63,15 @@ function newLap(event){
   document.getElementById('lapList').innerHTML + newText + "\\\n"; // write it down
 }
 
+
+
+// resets the stopwatch and update the Dom to 0
 function stopwatchReset(event) {
   event.preventDefault()
   console.log('reset!')
-  clearInterval(intervalId);
-  stopwatchTime.innerHTML = 0 // reset the timer
+  clearInterval(intervalId)
+  rawTime = 0
+  document.getElementById('stopwatchTime').innerHTML = "00:00.00"
   document.getElementById('lapList').innerHTML = "" // reset the lap
 
 }
